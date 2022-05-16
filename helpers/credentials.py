@@ -1,21 +1,6 @@
-import pyodbc 
-
 class Credentials:
-    def __init__(self):
-        self.cursor = self.connectToServer()
-
-    def connectToServer(self):
-        server = 'tcp:ucsdserver.database.windows.net' 
-        database = 'ucsd' 
-        username = 'odl_user_616221' 
-        password = 'xzno31GKZ*5t'
-        cnxn = pyodbc.connect(
-            'DRIVER={ODBC Driver 18 for SQL Server};'
-            'SERVER='+server+';DATABASE='+database+';'
-            'UID='+username+';'
-            'PWD='+ password)
-        cursor = cnxn.cursor()
-        return cursor
+    def __init__(self, server):
+        self.cursor = server
 
     def checkUserName(self, username):
         self.cursor.execute(
