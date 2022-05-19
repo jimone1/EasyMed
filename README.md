@@ -5,7 +5,7 @@
 2. `$ cd ~/microsoft_ai_hack_backend`
 3. `$ export FLASK_APP=application`
 4. `$ python3 application.py` Notice: We will run our server on 10000 port
-5. Ip address is 127.0.0.1.
+5. Ip address is 20.231.217.74.
 
 ### API
 The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port.
@@ -65,3 +65,24 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
 - Returns:
     1. Success!
     2. User doesn't have this drug.
+
+### 3. Resources
+- GET Only
+- API access: `http://ip_address:port/getResources`
+- Returns:
+{
+    "DDI": [
+        {
+            "name": xxx,
+            "source": xxx,
+            "type": xxx
+        }, ...
+    ],
+    "DFI": [
+        {
+            "name": xxx,
+            "source": xxx,
+            "type": xxx
+        }, ...
+    ]
+}
