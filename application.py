@@ -38,7 +38,7 @@ def getDrugList():
         username = request.json['username']
         if drugs.checkUserName(username):
             return {"druglist": []}
-        return {"druglist": drugs.getDrugList("yiyaowan")}
+        return {"druglist": drugs.getDrugList(username)}
 
 @app.route("/addDrug", methods=['POST'])
 def addDrug():
@@ -47,11 +47,12 @@ def addDrug():
         drug_name = request.json['drug_name']
         drug_image_url = request.json['drug_image_url']
         drug_upc_code = request.json['drug_upc_code']
+        drug_desc = request.json['drug_desc']
 
         if drugs.ifUpcCodeExist(username, drug_upc_code):
             return "User already has this drug."
         
-        drugs.addDrug(username, drug_name, drug_image_url, drug_upc_code)
+        drugs.addDrug(username, drug_name, drug_image_url, drug_upc_code, drug_desc)
         return "Success!"
 
 @app.route("/removeDrug", methods=['POST'])

@@ -51,10 +51,10 @@ class Drugs:
         res_list = self.cursor.fetchall() # Should expect 1 row.
         return res_list[0][0] == 1
 
-    def addDrug(self, username, drug_name, drug_image_url, drug_upc_code):
+    def addDrug(self, username, drug_name, drug_image_url, drug_upc_code, drug_desc):
         self.cursor.execute(
-            "INSERT INTO Drugs (UserName, DrugName, DrugImageUrl, DrugUpcCode) " +
-            f"VALUES ('{username}', '{drug_name}', '{drug_image_url}', '{drug_upc_code}')")
+            "INSERT INTO Drugs (UserName, DrugName, DrugImageUrl, DrugUpcCode, DrugDesc) " +
+            f"VALUES ('{username}', '{drug_name}', '{drug_image_url}', '{drug_upc_code}', '{drug_desc}')")
         self.cursor.commit()
     
     def removeDrug(self, username, drug_upc_code):
@@ -62,17 +62,3 @@ class Drugs:
             "DELETE FROM Drugs " +
             f"WHERE UserName='{username}' and DrugUpcCode='{drug_upc_code}'")
         self.cursor.commit()
-
-# import pyodbc
-# server = 'tcp:ucsdserver.database.windows.net' 
-# database = 'ucsd' 
-# username = 'odl_user_616221' 
-# password = 'xzno31GKZ*5t'
-# cnxn = pyodbc.connect(
-#     'DRIVER={ODBC Driver 18 for SQL Server};'
-#     'SERVER='+server+';DATABASE='+database+';'
-#     'UID='+username+';'
-#     'PWD='+ password)
-# cursor = cnxn.cursor()
-# drugs = Drugs(cursor)
-# drugs.checkUpcCode("yiyaowan", "SomeUpcCode")
