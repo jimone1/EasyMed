@@ -50,7 +50,8 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
                 "username" : "xxxx",
                 "drug_name": "yyyy",
                 "drug_image_url": "zzzz",
-                "drug_upc_code": "eeee"
+                "drug_upc_code": "eeee",
+                "drug_desc": "xxxx"
             }
 - Returns:
     1. Success!
