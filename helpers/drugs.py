@@ -32,12 +32,13 @@ class Drugs:
         res_list = self.cursor.fetchall() # Should expect 1 row.
         drugs = []
         for drug in res_list:
-            _, drug_name, drug_image_url, drug_upc_code = drug
+            _, drug_name, drug_image_url, drug_upc_code, drug_desc = drug
             drugs.append(
                 {
                     "upc_code": drug_upc_code,
                     "drug_name": drug_name,
-                    "drug_image_url": drug_image_url
+                    "drug_image_url": drug_image_url,
+                    "drug_desc": drug_desc
                 }
             )
         return drugs
