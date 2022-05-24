@@ -72,14 +72,28 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
 - API access: `http://ip_address:port/getResources`
 - Returns:
 {
-    "DDI": [
+    "facts": [
         {
             "name": xxx,
             "source": xxx,
             "type": xxx
         }, ...
     ],
-    "DFI": [
+    "news": [
+        {
+            "name": xxx,
+            "source": xxx,
+            "type": xxx
+        }, ...
+    ],
+    "video": [
+        {
+            "name": xxx,
+            "source": xxx,
+            "type": xxx
+        }, ...
+    ],
+    "article": [
         {
             "name": xxx,
             "source": xxx,

@@ -17,8 +17,10 @@ class Resources:
 
     def getResources(self):
         resources = {}
-        resources["DDI"] = self.getOneResource("DDI")
-        resources["DFI"] = self.getOneResource("DFI")
+        resources["article"] = self.getOneResource("article")
+        resources["video"] = self.getOneResource("video")
+        resources["news"] = self.getOneResource("news")
+        resources["facts"] = self.getOneResource("facts")
         return resources
     
     def getOneResource(self, type):
