@@ -87,3 +87,13 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
         }, ...
     ]
 }
+
+### 4. DDI/DFI API
+- POST Only
+- API access: `http://ip_address:port/getDDI`
+- JSON Data: {
+                "username": "xxxx",
+                "curr_drug": "xxxx",
+                "drug_desc": "xxx"
+            }
+- Returns: DDI info from AI API.
