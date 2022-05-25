@@ -16,16 +16,19 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
 - API access: `http://ip_address:port/login`
 - Json Data: `{username: xxx, password: zzz}`
 - Returns:
-    1. Username doesn't exists.
-    2. Wrong password.
-    3. Success!
+    {
+        "code": 1 -> Failed / 0 -> Success,
+        "msg": "Username doesn't exists." | "Wrong password." | "Success!"
+    }
 #### 2. Sign Up
 - POST Only
 - API access: `http://ip_address:port/signup`
 - Json Data: `{username: xxx, password: zzz}`
 - Returns:
-    1. Username already exists.
-    2. Success!
+    {
+        "code": 1 -> Failed / 0 -> Success,
+        "msg": "Username already exists." | "Success!"
+    }
 
 ### 2. Drugs
 #### 1. Get Drug List
@@ -33,16 +36,17 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
 - API access: `http://ip_address:port/getDrugList`
 - Json Data: `{username: xxx, password: zzz}`
 - Returns:
-    1. User has no drug.
-    2. {
-            "druglist": [
-                [
-                    "upc_code_1",
-                    "drug_name_1",
-                    "drug_img_url_1"
-                ], ...
-            ]
-        }
+    {
+        "code": 1 -> Failed / 0 -> Success,
+        "msg": "Username doesn't exists." | "Success!",
+        "druglist": [
+            [
+                "upc_code_1",
+                "drug_name_1",
+                "drug_img_url_1"
+            ], ...
+        ]
+    }
 #### 2. Add Drug
 - POST Only
 - API access: `http://ip_address:port/addDrug`
@@ -54,8 +58,10 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
                 "drug_desc": "xxxx"
             }
 - Returns:
-    1. Success!
-    2. User already has this drug.
+    {
+        "code": 1 -> Failed / 0 -> Success,
+        "msg": "User already has this drug." | "Success!"
+    }
 #### 3. Remove Drug
 - POST Only
 - API access: `http://ip_address:port/removeDrug`
@@ -64,42 +70,49 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
                 "drug_upc_code": "eeee"
             }
 - Returns:
-    1. Success!
-    2. User doesn't have this drug.
+    {
+        "code": 1 -> Failed / 0 -> Success,
+        "msg": "User doesn't have this drug." | "Success!"
+    }
 
 ### 3. Resources
 - GET Only
 - API access: `http://ip_address:port/getResources`
 - Returns:
 {
-    "facts": [
-        {
-            "name": xxx,
-            "source": xxx,
-            "type": xxx
-        }, ...
-    ],
-    "news": [
-        {
-            "name": xxx,
-            "source": xxx,
-            "type": xxx
-        }, ...
-    ],
-    "video": [
-        {
-            "name": xxx,
-            "source": xxx,
-            "type": xxx
-        }, ...
-    ],
-    "article": [
-        {
-            "name": xxx,
-            "source": xxx,
-            "type": xxx
-        }, ...
-    ]
+
+    "code": 1 -> Failed / 0 -> Success,
+    "msg": "Success!",
+    "resources": {
+        "facts": [
+            {
+                "name": xxx,
+                "source": xxx,
+                "type": xxx
+            }, ...
+        ],
+        "news": [
+            {
+                "name": xxx,
+                "source": xxx,
+                "type": xxx
+            }, ...
+        ],
+        "video": [
+            {
+                "name": xxx,
+                "source": xxx,
+                "type": xxx
+            }, ...
+        ],
+        "article": [
+            {
+                "name": xxx,
+                "source": xxx,
+                "type": xxx
+            }, ...
+        ]
+    }
 }
 
 ### 4. DDI/DFI API

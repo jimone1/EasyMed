@@ -63,3 +63,25 @@ class Drugs:
             "DELETE FROM Drugs " +
             f"WHERE UserName='{username}' and DrugUpcCode='{drug_upc_code}'")
         self.cursor.commit()
+    
+    def prepareRequestML(self, username, curr_drug, drug_desc):
+        other_drugs = []
+
+        # TODO: Consider check upc code instead of drug_name.
+        for drug_info in drugs.getDrugList(username):
+            if drug_info["drug_name"] == curr_drug:
+                continue
+            other_drugs.append({
+                "drug_name": drug_info["drug_name"],
+                "drug_desc": drug_info["drug_desc"]
+            })
+
+        request_json = {
+            "current_drug": {
+                "drug_title": curr_drug,
+                "drug_desc": drug_desc
+            },
+            "other_drugs": other_drugs
+        }
+
+        return request_json
