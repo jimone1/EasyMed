@@ -33,6 +33,18 @@ def signup():
         credentials.registerUser(username, pwd)
         return {"code": 0, "msg": "Success!"}
 
+@app.route("/updateProfile", methods=['POST'])
+def updateProfile():
+    if request.method == 'POST':
+        old_username = request.json['old_username']
+        new_username = request.json['new_username']
+        new_password = request.json['new_password']
+        if credentials.checkUserName(username):
+            return {"code": 1, "msg": "Username doesn't exists."}
+        
+        credentials.updateProfile(old_username, new_username, new_password)
+        return {"code": 0, "msg": "Success!"}
+
 # 2. Drugs API
 @app.route("/getDrugList", methods=['POST'])
 def getDrugList():

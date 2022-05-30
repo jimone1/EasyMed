@@ -15,6 +15,13 @@ class Credentials:
             'PWD='+ password, autocommit=True)
         return cnxn.cursor()
 
+    def updateUserProfile(self, old_username, new_username, new_password):
+        self.cursor.execute(
+            "UPDATE Credentials " +
+            f"SET UserName='{new_username}', PassWord='{new_password}' " +
+            f"WHERE UserName='{old_username}'")
+        self.cursor.commit()
+
     def checkUserName(self, username):
         self.cursor.execute(
             "SELECT COUNT(1) " +
@@ -44,3 +51,6 @@ class Credentials:
             "INSERT INTO Credentials (UserName, Password) " +
             f"VALUES ('{username}', '{password}')")
         self.cursor.commit()
+
+cred = Credentials()
+cred.updateUserProfile("jimwan", "updatedjimwan", "updatedpassword")

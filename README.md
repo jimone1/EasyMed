@@ -30,6 +30,15 @@ The IP Address for our Microsoft Azure Virtual Machine is http://ip_address:port
         "msg": "Username already exists." | "Success!"
     }
 
+#### 3. Update Profile
+- Post Only
+- API access: http://ip_address:port/update_profile
+- JSON Data: {old_username: xxx, new_username: yyyy, new_passowrd: zzz}
+- Returns: {
+code: 1 -> Failed / 0 -> Success,
+msg: "Username doesn't exists." | "Success."
+}
+
 ### 2. Drugs
 #### 1. Get Drug List
 - POST Only
