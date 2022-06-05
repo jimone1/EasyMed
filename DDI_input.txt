@@ -1,0 +1,2 @@
+Current Drug|vitamin c	Current Drug|ritonavir
+Other Drug A|vitamin a	Other Drug B|riboflavin	Other Drug B|acetaminophen	Other Drug C|formoterol
