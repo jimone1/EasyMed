@@ -6,7 +6,7 @@ from helpers.interactions import *
 from flask import Flask
 from flask import request
 from deepddi.main import *
-import sys
+from helpers.report import *
 
 app = Flask(__name__)
 
@@ -14,6 +14,7 @@ credentials = Credentials()
 drugs = Drugs()
 resources = Resources()
 interaction = Interaction()
+report = Report()
 
 # 1. Credentials API.
 @app.route("/login", methods=['POST'])
@@ -187,6 +188,22 @@ def getDrugDetail():
         }
 
         return res
+
+# 5. Send Feedbacks
+@app.route("/sendFeedback", methods=['POST'])
+def sendFeedback():
+    if request.method == 'POST':
+        username = request.json['username'].replace("'", "''")
+        email = request.json['email'].replace("'", "''")
+        title = request.json['title'].replace("'", "''")
+        content = request.json['content'].replace("'", "''")
+        
+        report.sendFeedbacks(username, email, title, content)
+
+        return {
+            "code": 0,
+            "msg": "Success!"
+        }
 
 if __name__ == "__main__":
     app.debug = True
