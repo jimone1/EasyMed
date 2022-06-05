@@ -6,7 +6,7 @@ class Credentials:
         import pyodbc
         server = 'tcp:ucsdserver.database.windows.net' 
         database = 'ucsd' 
-        username = 'odl_user_616221' 
+        username = 'odl_user_616221'
         password = 'xzno31GKZ*5t'
         cnxn = pyodbc.connect(
             'DRIVER={ODBC Driver 18 for SQL Server};'
@@ -51,6 +51,3 @@ class Credentials:
             "INSERT INTO Credentials (UserName, Password) " +
             f"VALUES ('{username}', '{password}')")
         self.cursor.commit()
-
-cred = Credentials()
-cred.updateUserProfile("jimwan", "updatedjimwan", "updatedpassword")
