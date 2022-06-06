@@ -18,45 +18,42 @@ class Interaction:
     def transformDrugInteractions(self, interaction_datas):
         return [interaction_data["other_drug_name"] for interaction_data in interaction_datas]
 
-    def ifInteractionPairExist(self, drug_a, drug_b):
+    def ifInteractionPairExist(self, username, drug_a, drug_b):
         self.cursor.execute(
             "SELECT COUNT(1) " +
             "FROM Interactions " +
-            f"WHERE DrugName='{drug_a}' and OtherDrugName='{drug_b}'")
+            f"WHERE UserName='{username}' and DrugName='{drug_a}' and OtherDrugName='{drug_b}'")
         res_list = self.cursor.fetchall() # Should expect 1 row.
         return res_list[0][0] != 0
 
-    def insertInteractionPair(self, drug_a, drug_b):
-        command = "INSERT INTO Interactions (DrugName, OtherDrugName) " + \
-        f"VALUES ('{drug_a}', '{drug_b}')"
-
+    def insertInteractionPair(self, username, drug_a, drug_b):
+        command = "INSERT INTO Interactions (UserName, DrugName, OtherDrugName) " + \
+        f"VALUES ('{username}', '{drug_a}', '{drug_b}')"
         self.cursor.execute(command)
         self.cursor.commit()
     
-    def getNumberOfInteractions(self, drug):
-        self.cursor.execute(
-            "SELECT COUNT(1) " +
-            "FROM Interactions " +
-            f"WHERE DrugName='{drug}'")
+    def getNumberOfInteractions(self, username, drug):
+        command = "SELECT COUNT(1) " + "FROM Interactions " + f"WHERE UserName='{username}' and (DrugName='{drug}' or OtherDrugName='{drug}')"
+        self.cursor.execute(command)
         res_list = self.cursor.fetchall() # Should expect 1 row.
         return res_list[0][0]
 
-    def addInteractions(self, interaction_data):
+    def addInteractions(self, username, interaction_data):
         # 1. Transform
         curr_drug, other_drugs = interaction_data
         curr_drug = curr_drug[0].replace("'", "''")
         for other_drug in other_drugs:
-            if self.ifInteractionPairExist(curr_drug, other_drug): continue
-            self.insertInteractionPair(curr_drug, other_drug.replace("'", "''"))
+            if self.ifInteractionPairExist(username, curr_drug, other_drug): continue
+            self.insertInteractionPair(username, curr_drug, other_drug.replace("'", "''"))
     
-    def deleteInteractions(self, curr_drug):
+    def deleteInteractions(self, username, curr_drug):
         self.cursor.execute(
             "DELETE FROM Interactions " +
-            f"WHERE DrugName='{curr_drug}' or OtherDrugName='{curr_drug}'")
+            f"WHERE UserName='{username}' and (DrugName='{curr_drug}' or OtherDrugName='{curr_drug}')")
         self.cursor.commit()
 
-    def updateDrugList(self, drug_list):
+    def updateDrugList(self, username, drug_list):
         for drug_detail in drug_list:
             drug_detail["num_of_interactions"] = self.getNumberOfInteractions(
-                drug_detail["drug_name"].replace("'", "''"))
+                username, drug_detail["drug_name"].replace("'", "''"))
         return drug_list

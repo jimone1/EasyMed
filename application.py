@@ -56,16 +56,11 @@ def updateProfile():
 def getDrugList():
     if request.method == 'POST':
         username = request.json['username'].replace("'", "''")
-        if drugs.checkUserName(username):
-            return {
-                "code": 1,
-                "msg": "Username doesn't exists.",
-                "druglist": []
-            }
+        
         return {
             "code": 0,
             "msg": "Success!",
-            "druglist": interaction.updateDrugList(drugs.getDrugList(username))
+            "druglist": interaction.updateDrugList(username, drugs.getDrugList(username))
         }
 
 @app.route("/addDrug", methods=['POST'])
@@ -85,8 +80,8 @@ def addDrug():
             }
         
         drugs.addDrug(username, drug_name, drug_image_url, drug_upc_code, drug_desc)
-        if len(interaction_pairs) != 0:
-            interaction.addInteractions(interaction_pairs)
+        if interaction_pairs and len(interaction_pairs[1]) != 0:
+            interaction.addInteractions(username, interaction_pairs)
         return {
             "code": 0,
             "msg": "Success!"
@@ -106,7 +101,7 @@ def removeDrug():
             }
         
         drugs.removeDrug(username, drug_upc_code)
-        interaction.deleteInteractions(curr_drug)
+        interaction.deleteInteractions(username, curr_drug)
         return {
             "code": 0,
             "msg": "Success!"
@@ -135,7 +130,7 @@ def getDFI():
                 "code": 1,
                 "msg": "Failed: Username doesn't exists."
             }
-            
+
         request_json = {
             "drug_list": drugs.getDrugList(username, drug_title=True),
             'food_list': food_list
@@ -144,7 +139,7 @@ def getDFI():
         return {
             "code": 0,
             "msg": "Success!",
-            "interactions": makeUnique(run(request_json, "DFI"))
+            "interactions": makeUnique(food_list, run(request_json, "DFI"))
         }
 
 # 4. Get Drug Detail.
@@ -152,7 +147,7 @@ def getDFI():
 def getDrugDetail():
     if request.method == 'POST':
         username = request.json['username'].replace("'", "''")
-        curr_drug = request.json['curr_drug'].replace("'", "''")
+        curr_drug = request.json['curr_drug']
         drug_desc = request.json['drug_desc'].replace("'", "''")
         drug_upc_code = request.json['upc_code']
 

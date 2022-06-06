@@ -31,10 +31,11 @@ def updateDDIResult(ddi_result):
     ddi_result["cur_drug_side_effect"] = side_effects
 
 
-def makeUnique(food_interactions):
+def makeUnique(curr_foods, food_interactions):
     res = []
     food_names = set()
     for data in food_interactions:
+        if data["food_name"] not in curr_foods: continue
         if data["food_name"] in food_names: continue
         food_names.add(data["food_name"])
         res.append(data)
